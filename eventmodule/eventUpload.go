@@ -21,11 +21,6 @@ type EventResult struct {
 	EventID   int
 }
 
-type FileInfo struct {
-	FileName string `json: "FileName"`
-	FileSize int64  `json: "FileSize"`
-}
-
 type EventInfo struct {
 	AuthUser     string     `json: "AuthUser"`
 	AuthPasswd   string     `json: "AuthPasswd"`
@@ -38,6 +33,7 @@ type EventInfo struct {
 	Longitude    float64    `json: "Longitude"`
 	Lantitude    float64    `json: "Lantitude"`
 	AcceptUser   string     `json: "AcceptUser"`
+	EventStatus  string     `json: "EventStatus, omitempty"`
 	FileList     []FileInfo `json: "FileList"`
 }
 
