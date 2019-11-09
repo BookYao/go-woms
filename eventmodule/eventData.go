@@ -28,6 +28,11 @@ type EventReporter struct {
 	Timestamp  string `json: "Timestamp"`
 }
 
+type  ResultInfo struct {
+	Result  string `json: "Result"`
+	ErrCode string `json: "ErrCode"`
+}
+
 type EventAccept struct {
 	AcceptUser string `json: "AcceptUser"`
 }
