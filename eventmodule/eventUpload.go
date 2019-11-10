@@ -261,6 +261,11 @@ func EventUpload(w http.ResponseWriter, r *http.Request) {
 
 		mqInfo := upEventMqInfo(ei_id, &eventInfo)
 		mqmodule.MqPublish(eventInfo.AcceptUser, mqInfo)
+
+		status := eventUpPush(&eventInfo, ef_dir, ei_id, Event_Upload_Status)
+		if status != true {
+			fmt.Println("Event Up Push Other failed.")
+		}
 		return
 	}
 
