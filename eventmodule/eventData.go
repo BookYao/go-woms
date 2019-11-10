@@ -1,5 +1,11 @@
 package eventmodule
 
+const (
+	Event_Upload_Status = 1
+	Event_Misreport_Status = 2
+	Event_Finish_Status = 3
+)
+
 type EventDesc struct {
 	EventTime    string  `json: "EventTime"`
 	EventLevel   int     `json: "EventLevel"`
