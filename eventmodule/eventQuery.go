@@ -1,24 +1,24 @@
-package  eventmodule
+package eventmodule
 
 import (
+	"../sqlmodule"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
-	"../sqlmodule"
 )
 
 type eventQueryInfo struct {
-	AuthUser string `json: "authUser"`
-	AuthPasswd string  `json: "authPasswd"`
-	TimeStamp string `json: "timeStamp"`
-	EventID string `json: "eventID"`
+	AuthUser   string `json: "authUser"`
+	AuthPasswd string `json: "authPasswd"`
+	TimeStamp  string `json: "timeStamp"`
+	EventID    string `json: "eventID"`
 }
 
 func getEventDesc(id string, eventRes *EventQueryResponseInfo) bool {
-	eid, _:= strconv.Atoi(id)
-	sqlcmd := fmt.Sprintf("select ei_creatuser, ei_time, ei_level, ei_type, " +
-		" \"ei_Subject\", ei_desc, ei_longitude, ei_latitude, ei_user, ei_status " +
+	eid, _ := strconv.Atoi(id)
+	sqlcmd := fmt.Sprintf("select ei_creatuser, ei_time, ei_level, ei_type, "+
+		" \"ei_Subject\", ei_desc, ei_longitude, ei_latitude, ei_user, ei_status "+
 		" from \"T_Event_Info\" where ei_id = '%d';", eid)
 
 	fmt.Println("event query sql:", sqlcmd)
@@ -41,8 +41,8 @@ func getEventDesc(id string, eventRes *EventQueryResponseInfo) bool {
 }
 
 func getEventFile(id string, eventRes *EventQueryResponseInfo) bool {
-	eid, _:= strconv.Atoi(id)
-	sqlcmd := fmt.Sprintf("select ef_name, ef_dir, ef_size " +
+	eid, _ := strconv.Atoi(id)
+	sqlcmd := fmt.Sprintf("select ef_name, ef_dir, ef_size "+
 		" from \"T_Event_File\" where ef_eid = '%d';", eid)
 
 	db := sqlmodule.ConnectDB()
@@ -101,7 +101,7 @@ func eventQueryFailedInfo() []byte {
 	EventQueryResponse.ErrCode = "404"
 
 	jsonString, err := json.Marshal(&EventQueryResponse)
-	if err != nil  {
+	if err != nil {
 		fmt.Println("eventQueryFailedInfo build Failed, err:", err.Error())
 		return nil
 	}
@@ -114,10 +114,9 @@ func QuerySingleEvent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-/*	defer r.Body.Close()
-	body, _ := ioutil.ReadAll(r.Body)
-	fmt.Println("body: ", string(body))*/
+	/*	defer r.Body.Close()
+		body, _ := ioutil.ReadAll(r.Body)
+		fmt.Println("body: ", string(body))*/
 
 	len := r.ContentLength
 	body := make([]byte, len)

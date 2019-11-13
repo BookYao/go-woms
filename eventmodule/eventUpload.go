@@ -1,12 +1,12 @@
 package eventmodule
 
 import (
-	_ "github.com/lib/pq"
 	"../mqmodule"
 	"../sqlmodule"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	_ "github.com/lib/pq"
 	"io"
 	"net/http"
 	"os"

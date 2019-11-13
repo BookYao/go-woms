@@ -15,7 +15,7 @@ type EventDesc struct {
 type FileInfo struct {
 	FileName string `json: "FileName"`
 	FileSize int64  `json: "FileSize"`
-	FileDir string `json: "FileDir, omitempty"`
+	FileDir  string `json: "FileDir, omitempty"`
 }
 
 type EventFile struct {
@@ -28,7 +28,7 @@ type EventReporter struct {
 	Timestamp  string `json: "Timestamp"`
 }
 
-type  ResultInfo struct {
+type ResultInfo struct {
 	Result  string `json: "Result"`
 	ErrCode string `json: "ErrCode"`
 }
