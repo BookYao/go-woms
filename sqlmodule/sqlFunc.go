@@ -14,7 +14,7 @@ const (
 )
 
 func ConnectDB() *sql.DB {
-	pgsqlInfo := fmt.Sprintf("host=%s port=%d user=%s " +
+	pgsqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, passwd, dbname)
 
@@ -35,6 +35,7 @@ func ConnectDB() *sql.DB {
 
 	return db
 }
+
 /*
 func sqlQuery(db *sql.DB) bool {
 	sqlcmd := "select ei_id, ei_creatuser, ei_time from \"T_Event_Info\";"
@@ -93,4 +94,3 @@ func sqlUpdateFunc(db *sql.DB) bool {
 	return true
 }
 */
-

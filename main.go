@@ -1,15 +1,15 @@
 package main
 
 import (
+	"./eventmodule"
 	"fmt"
 	"log"
 	"net/http"
-	"./eventmodule"
 )
 
 const (
-	Event_UP_Interface = "/woms/api/UpEvent.php"
-	Query_Single_Event = "/woms/api/QuerySingleEvent.php"
+	Event_UP_Interface  = "/woms/api/UpEvent.php"
+	Query_Single_Event  = "/woms/api/QuerySingleEvent.php"
 	Event_Status_UpDate = "/woms/api/UpEventStatus.php"
 )
 

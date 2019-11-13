@@ -1,13 +1,13 @@
 package mqmodule
 
 import (
-	"github.com/streadway/amqp"
 	"fmt"
+	"github.com/streadway/amqp"
 )
 
 const (
-	url = "amqp://baseuser:basepasswd@192.168.100.186:5800/vhost_basemq"
-	exchange = "exc_basemq"
+	url          = "amqp://baseuser:basepasswd@192.168.100.186:5800/vhost_basemq"
+	exchange     = "exc_basemq"
 	exchangeType = "direct"
 )
 
@@ -37,7 +37,7 @@ func MqPublish(user string, msg []byte) bool {
 
 	queueName := "q_" + user
 	fmt.Println("QueueName:", queueName)
-	_, err = channel.QueueDeclarePassive(queueName,true, false, false, false, nil)
+	_, err = channel.QueueDeclarePassive(queueName, true, false, false, false, nil)
 	if err != nil {
 		_, err = channel.QueueDeclare(queueName, true, false, false, false, nil)
 		if err != nil {
@@ -58,7 +58,7 @@ func MqPublish(user string, msg []byte) bool {
 	err = channel.Publish(exchange, user, false, false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body: msg,
+			Body:        msg,
 		})
 
 	fmt.Println("Publish Msg: ", string(msg))
