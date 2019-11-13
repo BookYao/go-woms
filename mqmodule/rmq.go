@@ -1,7 +1,7 @@
 package mqmodule
 
 import (
-	"github.com/streadway/amqp/"
+	"github.com/streadway/amqp"
 	"fmt"
 )
 
