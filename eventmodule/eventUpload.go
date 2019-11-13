@@ -1,7 +1,7 @@
 package eventmodule
 
 import (
-	_ "../../github.com/lib/pq"
+	_ "github.com/lib/pq"
 	"../mqmodule"
 	"../sqlmodule"
 	"database/sql"
