@@ -56,7 +56,7 @@ func eventUpPush(eventInfo *EventInfo, filedir string, eid int, eventStatus int)
 	eventUpPushInfo := &EventUpPushInfo{}
 
 	eventUpPushInfo.EventID = fmt.Sprintf("%d", eid)
-	eventUpPushInfo.EventStatus =  fmt.Sprintf("%d", eventStatus)
+	eventUpPushInfo.EventStatus = fmt.Sprintf("%d", eventStatus)
 	eventUpPushInfo.AcceptUser = eventInfo.AcceptUser
 	eventUpPushInfo.EventType = eventInfo.EventType
 	eventUpPushInfo.EventLevel = eventInfo.EventLevel
@@ -78,5 +78,3 @@ func eventUpPush(eventInfo *EventInfo, filedir string, eid int, eventStatus int)
 	}
 	return true
 }
-
-
