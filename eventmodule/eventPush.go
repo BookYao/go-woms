@@ -1,11 +1,15 @@
 package eventmodule
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strings"
 )
 
 type EventUpPushInfo struct {
@@ -23,6 +27,43 @@ type EventUpPushInfo struct {
 	FileList     []FileInfo `json: "FileList"`
 }
 
+const (
+	EVENT_PUSH_FILE = "/usr/local/woms/configs/platform.ini"
+)
+func getPushUrl() string {
+	fp, err := os.Open(EVENT_PUSH_FILE)
+	if err != nil {
+		fmt.Println("Open Event Push File failed!")
+		return ""
+	}
+	defer fp.Close()
+
+	var url string
+	content := bufio.NewReader(fp)
+	for {
+		line, err := content.ReadString('\n')
+		line = strings.TrimSpace(line)
+		if err != nil {
+			if err == io.EOF {
+				break
+			} else {
+				fmt.Println("Read Event Push File Failed.", err.Error())
+				break
+			}
+		}
+
+		status := strings.Contains(line, "url=")
+		if status == false {
+			continue
+		} else {
+			url = line[len("url="):]
+			strings.TrimSpace(url)
+			break
+		}
+	}
+	return url
+}
+
 func eventUpPushOtherPlat(eventUpPushInfo *EventUpPushInfo) bool {
 	jsonString, err := json.Marshal(eventUpPushInfo)
 	if err != nil {
@@ -31,7 +72,12 @@ func eventUpPushOtherPlat(eventUpPushInfo *EventUpPushInfo) bool {
 	}
 	fmt.Println("Event Push Info:", string(jsonString))
 
-	url := "http://192.168.100.186/event_post.php"
+	url := getPushUrl()
+	if url == "" {
+		fmt.Println("Not configure Other Platform Push Url...")
+		return false
+	}
+	fmt.Printf("Event Push Url:%s\n", url)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonString))
 	if err != nil {
 		fmt.Println("Http New Request Failed")
